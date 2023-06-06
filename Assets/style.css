@@ -7,3 +7,91 @@
 body{
     user-select: none;
 }
+
+/* header page start */
+.header{
+   padding: 0.5rem;
+}
+.header nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header nav .logo{
+    font-size: 2rem;
+}
+/* header page end */
+
+/* home page start */
+.home{
+    background: url(img1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+/* home page end */
+
+/* footer page start */
+.footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    background: darkslateblue;
+    color: white;
+}
+.footer .box{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+}
+.footer a{
+    text-decoration: none;
+    color: white;
+    
+}
+/* footer page end */
+/* header page start */
+/* header page end */
+
+/* login page start */
+
+.login{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card h3{
+    text-align: center;
+    margin-top: 1rem;
+}
+.card{
+    width: 30rem;
+}
+.card form{
+    padding: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.card form input{
+    width: 20rem;
+    margin: 1rem;
+
+    padding: 0.5rem;
+}
+
+/* login page end */
