@@ -7,6 +7,7 @@
 body{
     user-select: none;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 /* header page start */
@@ -148,6 +149,19 @@ body{
     left: 8%;
     height: fit-content;
 }
+.blog .card-body .icons{
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.show-blog .card-header{
+    background-color:lightgray;
+    font-weight: bold;
+}
+.blog .icons button:hover{
+    background-color: goldenrod;
+}
+
 .blog .card textarea{
     border: none;
     outline: none;
@@ -189,18 +203,27 @@ body{
     margin-left: 3rem;
 }
 .dashboard-box p{
-    margin-left: 20%;
+    margin-left: 30%;
     color: grey;
 }
 .dashboard .dashboard-box .card{
     width: 20rem;
     height: 10rem;
     padding: 1rem;
-    text-align: center;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 2rem;
+    justify-content: baseline;
+    align-items: center;
+}
+.dashboard .dashboard-box h1{
+    color: tomato;
 }
 .dashboard .menu{
     text-align: center;
     margin-left: 0.5rem;
+    height: fit-content;
+    padding:0  1rem;
 }
 .dashboard .menu a{
     text-decoration: none;
