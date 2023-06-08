@@ -9,7 +9,6 @@
     <title>Login</title>
 </head>
 <body>
-<?php include "header.php" ?>
     <div class="Container login">
         <div class="card">
             <h3 class="card-title">Login Account</h3>

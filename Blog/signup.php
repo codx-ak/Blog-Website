@@ -9,7 +9,6 @@
     <title>Sign Up</title>
 </head>
 <body>
-    <?php include "header.php" ?>
     <div class="Container login">
         <div class="card">
             <h3 class="card-title">Create Account</h3>

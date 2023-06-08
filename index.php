@@ -9,11 +9,29 @@
     <title>Home</title>
 </head>
 <body>
-        <?php include "Blog/header.php" ?>
-        <div class="Container home">
+<div class="header Conatiner">
+    <nav>
+        <div class="logo">Blog</div>
+        <div class="nav">
+            <a  class="btn" href="Blog/login.php">Sign In</a>
+            <a class="btn btn-warning" href="Blog/signup.php">Create your blog</a>
+</div>
+        </div>
+    </nav>
+</div>
+    <div class="home">
         <h1 class="text-white">Publish your passions, your way</h1>
         <p class="text-white" >Create a unique and beautiful blog easily.</p>
-        <input class="btn btn-warning" type="button" value="Create your blog">
+        <a class="btn btn-warning" href="Blog/signup.php">Create your blog</a>
+    </div>
+    <div class="home-2">
+        <h2 class="ms-2 ">Choose the perfect design</h2>
+        <p>Create a beautiful blog that fits your style. Choose from a selection of easy-to-use templates – all with flexible layouts and hundreds of background images – or design something new. </p>
+    </div>
+    <div class="home-3">
+        <h2>Join millions of others</h2>
+        <p>Whether sharing your expertise, breaking news, or whatever’s on your mind, you’re in good company on Blogger. Sign up to discover why millions of people have published their passions here.</p>
+        <a class="btn btn-warning" href="Blog/signup.php">Create your blog</a>
     </div>
 
     <?php include "Blog/footer.php" ?>
