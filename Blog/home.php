@@ -13,37 +13,30 @@
 <div class="Home-page">
 </div>
 <h2 class="text-center m-2 p-4 container">Blogs</h2>
+    
 <div class="blog-card container d-flex gap-1">
-    <a href="blog.php" class="card">
+<?php 
+    $qml ="SELECT * FROM blogs limit 3";
+    $result=mysqli_query($db, $qml); 
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+    ?>
+    <a href="blog.php?blog_view=<?php echo $row['blog_id']; ?> " class="card">
         <div class="image">
-            <img src="../Assets/m1.jpg" alt="">
+        <img src="uploads/<?php echo $row['image']; ?>" alt="Blog image">
         </div>
         <div class="content">
-            <h6>Lorem, ipsum dolor.</h6>
-            <h4>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.ipsum dolor sit amet..</h4>
-            <p>9 mins ago</p>
+        <h6><?php echo $row['category'];?></h6>
+            <h4><?php echo $row['title'];?></h4>
+            <p><?php echo $row['date'];?></p>
         </div>
     </a>
-    <a href="blog.php" class="card">
-        <div class="image">
-            <img src="../Assets/m2.jpg" alt="">
-        </div>
-        <div class="content">
-            <h6>Lorem, ipsum dolor.</h6>
-            <h4>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.ipsum dolor sit amet..</h4>
-            <p>9 mins ago</p>
-        </div>
-    </a>
-    <a href="blog.php" class="card">
-        <div class="image">
-            <img src="../Assets/m3.jpg" alt="">
-        </div>
-        <div class="content">
-            <h6>Lorem, ipsum dolor.</h6>
-            <h4>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.ipsum dolor sit amet..</h4>
-            <p>9 mins ago</p>
-        </div>
-    </a>
+    <?php
+}
+} else {
+  echo"<div>No Blogs</div>";
+}
+  ?>
     
 </div>
 <a href="blogs.php"class="btn btn-warning"style="margin:1rem 45%">Read More</a>

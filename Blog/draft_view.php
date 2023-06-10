@@ -11,7 +11,7 @@
 <body>
 <?php include "header.php" ?>
     <div class="blogs">
-    <?php $qml ="select * from blogs where blog_id='$_GET[blog_view]'";
+    <?php $qml ="select * from draft where draft_id='$_GET[draft_view]'";
           $rest=mysqli_query($db, $qml); 
           $roww=mysqli_fetch_array($rest);
     ?>

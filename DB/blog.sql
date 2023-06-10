@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 04:50 PM
+-- Generation Time: Jun 10, 2023 at 09:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -30,11 +30,11 @@ SET time_zone = "+00:00";
 CREATE TABLE `blogs` (
   `blog_id` int(11) NOT NULL,
   `title` varchar(300) NOT NULL,
-  `date` date NOT NULL,
+  `date` date DEFAULT current_timestamp(),
   `content` text NOT NULL,
-  `auther` varchar(200) NOT NULL,
+  `auther` varchar(200) DEFAULT NULL,
   `category` varchar(200) NOT NULL,
-  `image` text NOT NULL
+  `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -46,11 +46,11 @@ CREATE TABLE `blogs` (
 CREATE TABLE `draft` (
   `draft_id` int(11) NOT NULL,
   `title` varchar(500) NOT NULL,
-  `date` date NOT NULL,
+  `date` date DEFAULT current_timestamp(),
   `content` text NOT NULL,
   `auther` varchar(200) NOT NULL,
   `category` varchar(200) NOT NULL,
-  `image` text NOT NULL
+  `image` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -65,7 +65,7 @@ CREATE TABLE `user` (
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `mobile` varchar(200) DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp(),
   `profile` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -99,19 +99,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `draft`
 --
 ALTER TABLE `draft`
-  MODIFY `draft_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `draft_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

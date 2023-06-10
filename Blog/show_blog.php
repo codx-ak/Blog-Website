@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include("connection.php");
+error_reporting(0);
+session_start();
+if(empty($_SESSION["user_id"]))
+{
+	header('location:home.php');
+}
+else
+{
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,44 +33,75 @@
                 <a class="btn " href="show_draft.php">Draft Blogs</a>
             </div>
         </div>
-        <div class="container show-blog">
-            <a href="add_blog.php" class="btn btn-primary" style="margin-left:80%; margin-bottom:0.5rem">create new blog</a>
-            <div class="card text-center w-100">
-                <div class="card-header">
-                    <div class="row p-2 m-0  title">
-                        <div class="col-1">S.no</div>
-                        <div class="col-5">title</div>
-                        <div class="col-3">date</div>
-                        <div class="col-1">edit</div>
-                        <div class="col-1">view</div>
-                        <div class="col-1">delete</div>
-                    </div>
-                </div>
-                <div class="card-body p-4">
-                    <div class="row border-bottom p-2">
-                        <div class="col-1">1</div>
-                        <div class="col-5">Ak</div>
-                        <div class="col-3">date</div>
-                        <div class="col-1"><a class="btn btn-outline-success" href="#">view</a></div>
-                        <div class="col-1"><a class="btn btn-outline-warning" href="#">edit</a></div>
-                        <div class="col-1"><a class="btn btn-outline-danger" href="#">delete</a></div>
-                    </div>
-                    <div class="row border-bottom p-2">
-                        <div class="col-1">1</div>
-                        <div class="col-5">Ak</div>
-                        <div class="col-3">date</div>
-                        <div class="col-1"><a class="btn btn-outline-success" href="#">view</a></div>
-                        <div class="col-1"><a class="btn btn-outline-warning" href="#">edit</a></div>
-                        <div class="col-1"><a class="btn btn-outline-danger" href="#">delete</a></div>
-                    </div>
-                    
+        
+         <div class="container show-blog-content">
+            <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="m-b-0 text-center">All Blogs</h4>
+                                </div>
+                                <div class="btn btn-primary m-2 col-md-3">
+                                    <a href="add_blog.php" class="btn" style="color:white;">create new blog</a>
+                                </div>
+
+                                <div class="table-responsive m-t-40">
+                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>title</th>
+                                                <th>Date</th>
+                                                <th>options</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                    <?php
+                                        $sql="SELECT * FROM blogs order by blog_id desc";
+                                        $query=mysqli_query($db,$sql);
+                                
+                                        if(!mysqli_num_rows($query) > 0 )
+                                        {
+                                            echo '<td colspan="11"><center>No Blogs</center></td>';
+                                        }
+                                        else
+                                            {				
+                                                while($rows=mysqli_fetch_array($query))
+                                                        {
+                                                                $mql="select * from blogs where blog_id='".$rows['blog_id']."'";
+                                                                $newquery=mysqli_query($db,$mql);
+                                                                $fetch=mysqli_fetch_array($newquery);
+                                                                
+                                                                
+                                                                    echo '<tr><td>'.$fetch['blog_id'].'</td>
+                                                                    
+                                                                                <td>'.$rows['title'].'</td>
+                                                                                <td>'.$rows['date'].'</td>
+                                                                            
+                                                                                     <td>
+                                                                                     <a href="blog.php?blog_view='.$rows['blog_id'].'" class="btn btn-outline-success">view</a>
+                                                                                     <a href="update_blog.php?blog_upd='.$rows['blog_id'].'" class="btn btn-outline-warning" >update</i></a>
+                                                                                     <a href="delete_blog.php?blog_del='.$rows['blog_id'].'" class="btn btn-outline-danger">delete</a> 
+                                                                                    </td></tr>';
+          
+                                                        }	
+                                            }
+                                    ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
                 </div>
             </div>
-        </div>
- 
-
-        </div>
     </div>
     <?php include "footer.php" ?>
 </body>
+<?php
+}
+?>
 </html>

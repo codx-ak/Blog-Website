@@ -43,55 +43,6 @@ body{
 }
 /* header page end */
 
-/* home page start */
-.home{
-    background: url(img1.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100vw;
-    height: 90vh;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-}
-.home-2{
-    background: url(home-2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 35rem;
-}
-.home-2 h2 , .home-2 p{
-    text-align: justify;
-    position: relative;
-    top: 40%;
-    left: 45%;
-    width: 40%;
-    font-weight:500;   
-}
-.home-3{
-    background: url(home-3.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 45rem;
-}
-.home-3 h2 , .home-3 p {
-    text-align: justify;
-    position: relative;
-    top: 40%;
-    left: 5%;
-    width: 45%;
-    font-weight:500; 
-    color: white;  
-    padding: 1rem;
-}
-.home-3 .btn{
-    position: relative;
-    top: 40%;
-    left: 15%;
-}
-
-/********************************************/
 
 .Home-page{
     background: url(../Assets/banner4.jpg);
@@ -154,9 +105,8 @@ body{
     align-items: center;
     font-size: 1.5rem;
 }
-.show-blog .card-header{
-    background-color:lightgray;
-    font-weight: bold;
+.show-blog-content .card{
+    width: 100% !important;  
 }
 .blog .icons button:hover{
     background-color: goldenrod;
@@ -313,7 +263,7 @@ body{
 }
 /* blog-card page end */
 
-/* commmet page start */
+/* commment page start */
 .comment p{
 color: gray;
 padding: 1rem;
@@ -342,15 +292,8 @@ padding: 1rem;
 .comment svg{
     color: orange;
 }
-/* commmet page end */
-/* header page start */
-/* header page end */
-/* header page start */
-/* header page end */
-/* header page start */
-/* header page end */
-/* header page start */
-/* header page end */
+/* commment page end */
+
 
 /* login page start */
 

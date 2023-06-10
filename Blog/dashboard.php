@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include("connection.php");
+error_reporting(0);
+session_start();
+if(empty($_SESSION["user_id"]))
+{
+	header('location:home.php');
+}
+else
+{
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,7 +42,13 @@
                     </svg>
                     <h5 class="mt-4">Total Blogs</h5>
                 </div>
-                <h1>05</h1>
+                <h1><?php $sql="select * from blogs";
+						$result=mysqli_query($db,$sql); 
+						$rws=mysqli_num_rows($result);
+                        $sql_2="select * from draft";
+						$result_2=mysqli_query($db,$sql_2); 
+						$rws_2=mysqli_num_rows($result_2);
+						echo $rws+$rws_2;?></h1>
             </div>
 
             <div class="card shadow">
@@ -42,7 +59,11 @@
 </svg>
                     <h5 class="mt-4">Saved Blogs</h5>
                 </div>
-                <h1>05</h1>
+                <h1><?php $sql="select * from draft";
+												$result=mysqli_query($db,$sql); 
+													$rws=mysqli_num_rows($result);
+													
+													echo $rws;?></h1>
             </div>
             
             <div class="card shadow">
@@ -52,7 +73,11 @@
 </svg>
                     <h5 class="mt-4">Published Blogs</h5>
                 </div>
-                <h1>05</h1>
+                <h1><?php $sql="select * from blogs";
+												$result=mysqli_query($db,$sql); 
+													$rws=mysqli_num_rows($result);
+													
+													echo $rws;?></h1>
             </div>
 
             <div class="card shadow">
@@ -63,7 +88,7 @@
 </svg>
                     <h5 class="mt-4">Total Reviews</h5>
                 </div>
-                <h1>05</h1>
+                <h1>150</h1>
             </div>
 
             <div class="card shadow">
@@ -74,7 +99,7 @@
 </svg>
                     <h5 class="mt-4">Total visits</h5>
                 </div>
-                <h1>05</h1>
+                <h1>2K</h1>
             </div>
 
             <div class="card shadow">
@@ -84,7 +109,7 @@
 </svg>
                     <h5 class="mt-4">Total likes</h5>
                 </div>
-                <h1>05</h1>
+                <h1>250</h1>
             </div>
 
  
@@ -94,4 +119,7 @@
     </div>
     <?php include "footer.php" ?>
 </body>
+<?php
+}
+?>
 </html>

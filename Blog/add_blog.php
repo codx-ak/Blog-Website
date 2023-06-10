@@ -1,5 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include("connection.php");
+error_reporting(0);
+session_start();
+if(empty($_SESSION["user_id"]))
+{
+	header('location:home.php');
+}
+else
+{
+  $user_id=$_SESSION['user_id'];
+  $timestamp = time();
+  $date = date('Y-m-d', $timestamp);
+?>
+<?php $qml ="select * from user where user_id= $user_id";
+          $rest=mysqli_query($db, $qml); 
+          $user_row=mysqli_fetch_array($rest);
+          $user_name=$user_row['name'];
+              ?>
+
+<?php
+    if(isset($_POST['submit']))
+
+    {
+               
+    if(empty($_POST['bg_title'])||empty($_POST['bg_content']))
+    {	
+      echo "<script>alert('Opps fill the details!');</script>"; 
+             
+    }
+    else
+          {
+ 
+				        $fname = $_FILES['file']['name'];
+								$temp = $_FILES['file']['tmp_name'];
+								$extension = explode('.',$fname);
+								$extension = strtolower(end($extension));  
+								$fnew = uniqid().'.'.$extension;
+								$store = "uploads/".basename($fnew);                      
+                      $sql = "INSERT INTO blogs (title,content,category,auther,image) VALUE('".$_POST['bg_title']."','".$_POST['bg_content']."','".$_POST['bg_category']."','$user_name','.$fnew.')";
+                      mysqli_query($db, $sql);                
+                      move_uploaded_file($temp, $store);
+                       echo "<script>alert('successfuly added !');</script>"; 
+                        header("refresh:1;url=show_blog.php");	
+			  
+            
+	   
+	   }
+
+                      
+    
+    
+    }
+    
+    ?>
+    <?php
+    if(isset($_POST['save']))
+
+    {
+               
+    if(empty($_POST['bg_title'])||empty($_POST['bg_content']))
+    {	
+      echo "<script>alert('Opps fill the details!');</script>"; 
+             
+    }
+    else
+          {
+            $fname = $_FILES['file']['name'];
+								$temp = $_FILES['file']['tmp_name'];
+								$extension = explode('.',$fname);
+								$extension = strtolower(end($extension));  
+								$fnew = uniqid().'.'.$extension;
+								$store = "uploads/".basename($fnew);   
+
+            $sql = "INSERT INTO draft (title,content,category,auther,image) VALUE('".$_POST['bg_title']."','".$_POST['bg_content']."','".$_POST['bg_category']."','$user_name',,'.$fnew.')";
+			    mysqli_query($db, $sql);                
+          move_uploaded_file($temp, $store);
+          header("refresh:1;url=show_draft.php");	
+          echo "<script>alert('successfuly Saved !');</script>"; 
+                  
+        }
+                      
+    
+    
+    }
+    
+    ?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,21 +99,23 @@
 <body>
 <?php include "header.php" ?>
     <div class="Container blog">
+      <form action="" method="POST">
     <div class="sidemenu d-flex justify-content-end me-4 gap-4">
             <a href="dashboard.php"  class="btn btn-danger">Cancel</a>
-            <input class="btn btn-success" type="submit" value=" Save">
-            <input  class="btn btn-primary" type="submit" value="Publish">
+            
+            <input  class="btn btn-primary" type="submit" name="save" value="Draft">
+            <input  class="btn btn-primary" type="submit" name="submit" value="Publish">
         </div>    
     <div class="card m-3 p-2">
             <div class="card-header d-flex gap-4">
                 <div class="image">
                     <img src="../Assets/img1.png" alt="">
                 </div>
-                <input type="text" placeholder="Enter Blog Title">
+                <input type="text" name="bg_title" placeholder="Enter Blog Title">
             </div>
             <div class="card-body">
                 <div class="btn btn-outline-secondary">
-    <input type="file" name="uploadfile" id="img" style="display:none;"/>
+    <input type="file" name="file" id="img"/>
     <label for="img"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
   <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
   <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
@@ -66,33 +156,37 @@
   <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
 </svg></button>
 </div>
-                <textarea name="" placeholder=" write blog here ....." id="" cols="100" rows="17"></textarea>
+                <textarea name="bg_content" placeholder=" write blog here ....." id="" cols="100" rows="17"></textarea>
                 <div>
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-</svg> Auther : <span>Ak</span></div>
+</svg> Auther : <span><?php echo $user_row['name'];?></span></div>
 <label for=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
   <path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/>
   <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z"/>
-</svg> Category : </label> <select name="" id="">
-    <option value="1" default>--select--</option>
-    <option value="2">Education</option>
-    <option value="3">news</option>
-    <option value="4">games</option>
-    <option value="5">social</option>
-    <option value="6">Internet</option>
+</svg> Category : </label> <select name="bg_category" id="">
+<option value="1" default>--select--</option>
+    <option value="Education">Education</option>
+    <option value="News">news</option>
+    <option value="Games">games</option>
+    <option value="Social">social</option>
+    <option value="Internet">Internet</option>
 </select>
     <div>
     <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
   <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
   <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-</svg> date : </span> <span> 28/1/2000</span>
+</svg> date : </span> <span><?php echo $date; ?></span>
     </div>
 
 </div>
     
         </div>
+        </form>
     </div>
     <?php include "footer.php" ?>
 </body>
+<?php
+}
+?>
 </html>

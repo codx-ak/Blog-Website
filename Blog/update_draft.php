@@ -23,13 +23,13 @@ else
 <?php include "header.php" ?>
     <div class="Container blog">
     
-    <?php $qml ="select * from blogs where blog_id='$_GET[blog_upd]'";
+    <?php $qml ="select * from draft where draft_id='$_GET[draft_upd]'";
           $rest=mysqli_query($db, $qml); 
           $roww=mysqli_fetch_array($rest);
     ?>
 
     <?php
-    if(isset($_POST['submit']))
+    if(isset($_POST['save']))
     {
                
     if(empty($_POST['bg_title'])||empty($_POST['bg_content']))
@@ -40,9 +40,9 @@ else
     else
     {
           
-                                    $sql = "update blogs set title='$_POST[bg_title]',content='$_POST[bg_content]',category='$_POST[bg_category]' where blog_id='$_GET[blog_upd]'";
+                                    $sql = "update draft set title='$_POST[bg_title]',content='$_POST[bg_content]',category='$_POST[bg_category]' where draft_id='$_GET[draft_upd]'";
                                     mysqli_query($db, $sql); 
-                                    header("refresh:1;url=show_blog.php");	
+                                    header("refresh:1;url=show_draft.php");	
                                     echo "<script>alert('successfuly updated !');</script>"; 
                   
         }
@@ -52,11 +52,39 @@ else
     }
     
     ?>
+
+<?php
+    if(isset($_POST['publish']))
+    {
+               
+    if(empty($_POST['bg_title'])||empty($_POST['bg_content']))
+    {	
+      echo "<script>alert('Opps fill the details!');</script>"; 
+             
+    }
+    else
+    {
+        {   $sql = "INSERT INTO blogs (title,content,category,auther) VALUE('".$_POST['bg_title']."','".$_POST['bg_content']."','".$_POST['bg_category']."','$user_name')";
+            mysqli_query($db, $sql);                
+            header("refresh:1;url=show_blog.php");	
+            mysqli_query($db,"DELETE FROM draft WHERE draft_id = '".$_GET['draft_upd']."'");
+            echo "<script>alert('successfuly added !');</script>"; 
+              
+        }    
+        }
+                      
+    
+    
+    }
+    
+    ?>
+
       <form action="" method="post">
     <div class="sidemenu d-flex justify-content-end me-4 gap-4">
             <a href="dashboard.php"  class="btn btn-warning">Cancel</a>
-            <a href="delete_blog.php?blog_del=<?php echo $roww['blog_id'];?>" class="btn btn-danger">delete</a> 
-            <input  class="btn btn-primary" type="submit" name="submit" value="Publish">
+            <a href="delete_draft.php?draft_del=<?php echo $roww['draft_id'];?>" class="btn btn-danger">delete</a> 
+            <input  class="btn btn-success" type="submit" name="save" value="Save">
+            <input  class="btn btn-primary" type="submit" name="publish" value="Publish">
         </div>    
     <div class="card m-3 p-2">
             <div class="card-header d-flex gap-4">
